@@ -30,6 +30,18 @@ class UKF {
   void Prediction(double delta_t);
 
   /**
+   * Calculate the sigma points and store them in the input reference matrix
+   * 
+   */
+  void GenerateSigmaPoints();
+
+  /**
+   * Calculate the predicted sigma points and store them in the input reference matrix
+   * @param delta_t Time between k and k+1 in s
+   */
+  void SigmaPointPrediction(double delta_t);
+
+  /**
    * Updates the state and the state covariance matrix using a laser measurement
    * @param meas_package The measurement at k+1
    */
@@ -59,6 +71,15 @@ class UKF {
 
   // predicted sigma points matrix
   Eigen::MatrixXd Xsig_pred_;
+
+  // Generate sigma points
+  Eigen::MatrixXd Xsig_out;
+
+  //Lidar measurement noise martix;
+  Eigen::MatrixXd R_lidar;
+
+  //Radar measurement matrix;
+  Eigen::MatrixXd R_radar;
 
   // time when the state is true, in us
   long long time_us_;
